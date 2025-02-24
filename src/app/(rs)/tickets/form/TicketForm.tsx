@@ -17,6 +17,12 @@ import {
 } from '@/zod-schemas/ticket';
 import { selectCustomerSchemaType } from '@/zod-schemas/customer';
 
+import { useAction } from 'next-safe-action/hooks';
+import { saveTicketAction } from '@/app/actions/saveTicketAction';
+import { toast } from 'sonner';
+import { LoaderCircle } from 'lucide-react';
+import DisplayServerActionResponse from '@/components/DisplayServerActionResponse';
+
 type Props = {
   customer: selectCustomerSchemaType;
   ticket?: selectTicketSchemaType;
@@ -42,12 +48,34 @@ export default function TicketForm({ customer, ticket, techs, isEditable = true 
     defaultValues,
   });
 
+  const {
+    execute: executeSave,
+    result: saveResult,
+    isPending: isSaving,
+    reset: resetSaveAction,
+  } = useAction(saveTicketAction, {
+    onSuccess: ({ data }) => {
+      if (data?.message) {
+        toast.success('Success!', {
+          description: data.message,
+        });
+      }
+    },
+    onError: ({ error }) => {
+      toast.error('Error!', {
+        description: 'Save Failed',
+      });
+    },
+  });
+
   async function submitForm(data: insertTicketSchemaType) {
-    console.log(data);
+    // console.log(data);
+    executeSave(data);
   }
 
   return (
     <div className="flex flex-col gap-1 sm:px-8">
+      <DisplayServerActionResponse result={saveResult} />
       <div>
         <h2 className="text-2xl font-bold">
           {ticket?.id && isEditable
@@ -122,15 +150,31 @@ export default function TicketForm({ customer, ticket, techs, isEditable = true 
 
             {isEditable ? (
               <div className="flex gap-2">
-                <Button type="submit" className="w-3/4" variant="default" title="Save">
-                  Save
+                <Button
+                  type="submit"
+                  className="w-3/4"
+                  variant="default"
+                  title="Save"
+                  disabled={isSaving}
+                >
+                  {isSaving ? (
+                    <>
+                      <LoaderCircle className="animate-spin" />
+                      Saving...
+                    </>
+                  ) : (
+                    'Save'
+                  )}
                 </Button>
 
                 <Button
                   type="button"
                   variant="destructive"
                   title="Reset"
-                  onClick={() => form.reset(defaultValues)}
+                  onClick={() => {
+                    form.reset(defaultValues);
+                    resetSaveAction();
+                  }}
                 >
                   Reset
                 </Button>
