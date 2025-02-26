@@ -22,7 +22,13 @@ export default function BackButton({ title, className, variant, ...props }: Prop
   const router = useRouter();
 
   return (
-    <Button variant={variant} className={className} onClick={() => router.back()} title={title}>
+    <Button
+      variant={variant}
+      className={className}
+      onClick={() => router.back()}
+      title={title}
+      {...props}
+    >
       {title}
     </Button>
   );
