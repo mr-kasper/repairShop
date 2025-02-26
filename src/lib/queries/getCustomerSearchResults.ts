@@ -18,7 +18,8 @@ export async function getCustomerSearchResults(searchText: string) {
           .toLowerCase()
           .replace(' ', '%')}%`}`
       )
-    );
+    )
+    .orderBy(customers.lastName);
 
   return results;
 }

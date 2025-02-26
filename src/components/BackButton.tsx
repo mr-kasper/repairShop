@@ -18,7 +18,7 @@ type Props = {
     | undefined;
 } & ButtonHTMLAttributes<HTMLButtonElement>;
 
-export default function BackButton({ title, className, variant, ...props }: Props) {
+export default function BackButton({ title, className, variant }: Props) {
   const router = useRouter();
 
   return (
