@@ -1,36 +1,111 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Computer Repair Shop
 
-## Getting Started
+A Next.js application for managing computer repair services.
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This application helps manage computer repair tickets, customers, and technician assignments.
+
+## Features
+
+- Customer management and search
+- Ticket creation and tracking
+- Technician assignment (manager access)
+- Status tracking for repair tickets
+
+## Tech Stack
+
+- 🔗 [Next.js](https://nextjs.org/)
+- 🔗 [React](https://reactjs.org/)
+- 🔗 [TypeScript](https://www.typescriptlang.org/)
+- 🔗 [TailwindCSS](https://tailwindcss.com/)
+- 🔗 [ShadCN/ui](https://ui.shadcn.com/)
+- 🔗 [Sentry](https://sentry.io/)
+- 🔗 [Kinde Auth](https://kinde.com/)
+- 🔗 [Neon Postgres](https://neon.tech/)
+- 🔗 [Drizzle ORM](https://orm.drizzle.team/)
+- 🔗 [react-hook-form](https://react-hook-form.com/)
+- 🔗 [Zod](https://zod.dev/)
+- 🔗 [next-safe-action](https://next-safe-action.dev/)
+- 🔗 [TanStack Table](https://tanstack.com/table/v8)
+- 🔗 [Vercel](https://vercel.com/)
+
+## Installation and Setup
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/mr-kasper/repairShop.git
+   cd repairshop
+   ```
+
+2. Install dependencies
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   # or
+   pnpm install
+   ```
+
+3. Set up environment variables
+
+   - Create a `.env.local` file in the root directory
+   - See the [Environment Variables](#environment-variables) section for required variables
+
+4. Set up the database
+
+   ```bash
+   npm run db:push
+   # or
+   yarn db:push
+   ```
+
+5. Start the development server
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   # or
+   pnpm dev
+   ```
+
+## Environment Variables
+
+Create a `.env.local` file with the following variables:
+
+```
+SENTRY_AUTH_TOKEN=
+
+KINDE_CLIENT_ID=
+KINDE_CLIENT_SECRET=
+KINDE_ISSUER_URL=
+KINDE_SITE_URL=http://localhost:3000
+KINDE_POST_LOGOUT_REDIRECT_URL=http://localhost:3000
+KINDE_POST_LOGIN_REDIRECT_URL=http://localhost:3000/tickets
+
+DATABASE_URL=
+
+KINDE_DOMAIN=
+KINDE_MANAGEMENT_CLIENT_ID=
+KINDE_MANAGEMENT_CLIENT_SECRET=
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development Workflow
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Database Changes**: Use Drizzle to manage schema changes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+  ```bash
+  npm run db:generate
+  npm run db:push
+  ```
 
-## Learn More
+- **Testing**: Run tests with
+  ```bash
+  npm run test
+  ```
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Visit our live application at [Repair Shop](https://repair-shop-eight.vercel.app/)
